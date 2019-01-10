@@ -1,5 +1,7 @@
+<!-- ADMIN INDEX -->
+
 <?php
-    include "includes/header.php";
+    include "includes/admin_header.php";
 ?>
 
 <body>
@@ -8,7 +10,7 @@
 
         <!-- Navigation -->
         <?php
-            include "includes/navigation.php";
+            include "includes/admin_navigation.php";
         ?>
 
 
@@ -21,6 +23,7 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             Blank Page
+                            
                             <small>Subheading</small>
                         </h1>
                         <ol class="breadcrumb">
@@ -42,5 +45,5 @@
         <!-- /#page-wrapper -->
 
     <?php
-        include "includes/footer.php";
+        include "includes/admin_footer.php";
     ?>
