@@ -1,19 +1,14 @@
 <!-- ADMIN INDEX -->
-
 <?php
     include "includes/admin_header.php";
 ?>
 
 <body>
-
     <div id="wrapper">
-
         <!-- Navigation -->
         <?php
             include "includes/admin_navigation.php";
         ?>
-
-
         <div id="page-wrapper">
 
             <div class="container-fluid">
@@ -37,13 +32,10 @@
                     </div>
                 </div>
                 <!-- /.row -->
-
             </div>
             <!-- /.container-fluid -->
-
         </div>
         <!-- /#page-wrapper -->
-
-    <?php
-        include "includes/admin_footer.php";
-    ?>
+<?php
+    include "includes/admin_footer.php";
+?>

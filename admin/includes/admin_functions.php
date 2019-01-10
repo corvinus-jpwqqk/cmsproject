@@ -2,16 +2,16 @@
 function showCategories(){
     global $connection;
     $cat_query = "SELECT * FROM categories";
-                                    $cat_query_result = mysqli_query($connection, $cat_query);
-                                    while($row = mysqli_fetch_assoc($cat_query_result)){
-                                        $catid = $row['cat_id'];
-                                        $catname = $row['cat_title'];
-                                        echo "<tr>
-                                        <td>{$catid}</td>
-                                        <td>{$catname}</td>
-                                        <td><a href='categories.php?delete={$catid}'>delete</td>
-                                    </tr>";
-                                    }
+    $cat_query_result = mysqli_query($connection, $cat_query);
+    while($row = mysqli_fetch_assoc($cat_query_result)){
+        $catid = $row['cat_id'];
+        $catname = $row['cat_title'];
+        echo "<tr>
+            <td>{$catid}</td>
+            <td>{$catname}</td>
+            <td><a href='categories.php?delete={$catid}'>delete</td>
+        </tr>";
+    }
 }
 function deleteCategory(){
 if(isset($_GET['delete'])){
@@ -67,17 +67,17 @@ function showPosts(){
         $post_category = $row['post_category_id'];
         $post_status = $row['post_status'];
         echo"
-        <tr>
-                                <td>$post_id</td>
-                                <td>$post_author</td>
-                                <td>$post_title</td>
-                                <td>$post_category</td>
-                                <td>$post_status</td>
-                                <td><img width='100' src='../images/$post_image'></td>
-                                <td>$post_tags</td>
-                                <td>$post_comment</td>
-                                <td>$post_date</td>
-                            </tr>   ";
+            <tr>
+                <td>$post_id</td>
+                <td>$post_author</td>
+                <td>$post_title</td>
+                <td>$post_category</td>
+                <td>$post_status</td>
+                <td><img width='100' src='../images/$post_image'></td>
+                <td>$post_tags</td>
+                <td>$post_comment</td>
+                <td>$post_date</td>
+            </tr>";
     }
 }
 ?>
