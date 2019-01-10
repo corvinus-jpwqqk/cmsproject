@@ -54,6 +54,22 @@ function showPosts(){
     global $connection;
     $post_query = "SELECT * FROM posts";
     $result_post_query = mysqli_query($connection, $post_query);
+    echo "
+        <table class='table table-bordered table-hover'><thead>
+        <tr>
+        <th>Id</th>
+        <th>Author</th>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Image</th>
+        <th>Tags</th>
+        <th>Comments</th>
+        <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+    ";
     while($row = mysqli_fetch_assoc($result_post_query)){
         $post_id = $row['post_id'];
         $post_author = $row['post_author'];
@@ -66,8 +82,8 @@ function showPosts(){
         $post_title = $row['post_title'];
         $post_category = $row['post_category_id'];
         $post_status = $row['post_status'];
-        echo"
-            <tr>
+        echo "
+                <tr>
                 <td>$post_id</td>
                 <td>$post_author</td>
                 <td>$post_title</td>
@@ -77,7 +93,9 @@ function showPosts(){
                 <td>$post_tags</td>
                 <td>$post_comment</td>
                 <td>$post_date</td>
-            </tr>";
+                </tr>"
+        ;
     }
+    echo "</tbody></table>";
 }
 ?>
