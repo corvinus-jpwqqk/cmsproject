@@ -17,6 +17,7 @@
                         <h1 class="page-header">
                             View All Posts
                         </h1>
+                        <?php showPosts(); ?>
                     </div>
                 </div>
                 <!-- /.row -->
