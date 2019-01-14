@@ -28,7 +28,8 @@
             <?php
             while($row = mysqli_fetch_assoc($category_query)){
                 $category = $row['cat_title'];
-                echo "<li><a href='#'>{$category}</a>
+                $cat_id = $row['cat_id'];
+                echo "<li><a href='catposts.php?catid=$cat_id'>{$category}</a>
                 </li>";
             }
             ?>

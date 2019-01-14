@@ -23,9 +23,7 @@ include "includes/connect.php";
                         $search = $_POST['search'];
                         $query = "SELECT * FROM posts WHERE post_tags LIKE '%$search%' ";
                         $search_query = mysqli_query($connection, $query);
-                        if(!$search_query){
-                            die("Query failed!".mysqli_error($connection));
-                        }
+                        confirmQuery($search_query);
                         $count = mysqli_num_rows($search_query);
                         if($count == 0){
                             echo "No posts with the tag!";

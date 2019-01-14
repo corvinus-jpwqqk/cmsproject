@@ -17,7 +17,27 @@
                         <h1 class="page-header">
                             View All Posts
                         </h1>
-                        <?php showPosts(); ?>
+                        <?php 
+                        if(isset($_GET['source'])){
+                            $source = $_GET['source'];
+                        }
+                        else{
+                            $source = "";
+                            }
+                        switch($source){
+                            case 'add_post';
+                                include "includes/add_post.php";
+                                break;
+                            case 'edit_post';
+                                include "includes/edit_post.php";
+                                break;
+                            default:
+                                echo "default";
+                                showPosts();
+                                break;
+                        }
+                            deletePost();
+                        ?>
                     </div>
                 </div>
                 <!-- /.row -->

@@ -14,11 +14,13 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <?php
+                        global $connection;
                         $query = "SELECT * FROM categories";                    
                         $result = mysqli_query($connection, $query);
                         while($row = mysqli_fetch_assoc($result)){
                             $cat_title = $row['cat_title'];
-                            echo "<li><a href=''>{$cat_title}</a></li>";
+                            $cat_id = $row['cat_id'];
+                            echo "<li><a href='catposts.php?catid=$cat_id'>{$cat_title}</a></li>";
                         }
                     ?>
                     <li><a href="admin/index.php">Admin</li>

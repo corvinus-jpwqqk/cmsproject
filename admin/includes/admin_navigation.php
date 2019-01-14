@@ -19,7 +19,7 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li>
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#posts-dropdown"><i class="fa fa-fw fa-arrows-v"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
@@ -28,12 +28,12 @@
                                 <a href="./posts.php">View All Posts</a>
                             </li>
                             <li>
-                                <a href="#">Add new post</a>
+                                <a href="./posts.php?source=add_post">Add new post</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="./categories"><i class="fa fa-fw fa-file"></i> Categories</a>
+                        <a href="./categories.php"><i class="fa fa-fw fa-file"></i> Categories</a>
                     </li>
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#users-dropdown"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>

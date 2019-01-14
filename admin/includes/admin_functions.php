@@ -1,4 +1,12 @@
 <?php
+
+function confirmQuery($query_result){
+    global $connection;
+    if(!$query_result){
+        die("Query failed". mysqli_error($connection));
+    }
+}
+
 function showCategories(){
     global $connection;
     $cat_query = "SELECT * FROM categories";
@@ -39,16 +47,25 @@ function newCategory(){
         else{
             $cat_insert_query = "INSERT INTO categories (cat_title) VALUES ('$new_cat_title')";
             $instert_query_result = mysqli_query($connection, $cat_insert_query);
-            if($instert_query_result){
-                echo "Insertion successful!";
-            }
-            else{
-                die("problem with insertion!");
-            }
+            confirmQuery($instert_query_result);
         }
         
     }
 }
+
+function deletePost(){
+    global $connection;
+    if(isset($_GET['delete'])){
+        $delete_id = $_GET['delete'];
+        $del_post_query = "DELETE FROM posts WHERE post_id={$delete_id}";
+        $delete_query = mysqli_query($connection, $del_post_query);
+        confirmQuery($delete_query);
+        if($delete_query){
+            header('Location: posts.php');
+        }
+    }
+}
+
 
 function showPosts(){
     global $connection;
@@ -86,15 +103,23 @@ function showPosts(){
                 <tr>
                 <td>$post_id</td>
                 <td>$post_author</td>
-                <td>$post_title</td>
-                <td>$post_category</td>
+                <td>$post_title</td>";
+
+                $cat_id_query = "SELECT * FROM categories WHERE cat_id=$post_category";
+                $cat_id_result = mysqli_query($connection, $cat_id_query);
+                while($row = mysqli_fetch_assoc($cat_id_result)){
+                    $current_category = $row['cat_title'];
+                }
+                echo "
+                <td>$current_category</td>
                 <td>$post_status</td>
                 <td><img width='100' src='../images/$post_image'></td>
                 <td>$post_tags</td>
                 <td>$post_comment</td>
                 <td>$post_date</td>
-                </tr>"
-        ;
+                <td><a href='./posts.php?source=edit_post&edit={$post_id}'>Edit</a></td>
+                <td><a href='./posts.php?delete={$post_id}'>Delete</a></td>
+                </tr>";
     }
     echo "</tbody></table>";
 }
