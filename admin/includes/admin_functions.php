@@ -1,5 +1,4 @@
 <?php
-
 function confirmQuery($query_result){
     global $connection;
     if(!$query_result){
@@ -123,4 +122,78 @@ function showPosts(){
     }
     echo "</tbody></table>";
 }
+
+function showComments(){
+    global $connection;
+    $comment_query = "SELECT * FROM comments";
+    $comment_query_result = mysqli_query($connection, $comment_query);
+    echo "
+        <table class='table table-bordered table-hover'><thead>
+        <tr>
+        <th>Id</th>
+        <th>In response to</th>
+        <th>Date</th>
+        <th>Author</th>
+        <th>Email</th>
+        <th>Content</th>
+        <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+    ";
+    while($row = mysqli_fetch_assoc($comment_query_result)){
+        $comment_id = $row['comment_id'];
+        $comment_post_id = $row['comment_post_id'];
+        $comment_date = $row['comment_date'];
+        $comment_author = $row['comment_author'];
+        $comment_email = $row['comment_email'];
+        $comment_content = substr($row['comment_content'], 0, 20) . "...";
+        $comment_status = $row['comment_status'];
+        $comment_post_query = "SELECT * FROM posts WHERE post_id=$comment_post_id";
+        $comment_post_query_result = mysqli_query($connection, $comment_post_query);
+        while($row = mysqli_fetch_assoc($comment_post_query_result)){
+            $comment_post = substr($row['post_content'], 0, 15) . '...';
+        }
+        
+        echo "
+                <tr>
+                <td>$comment_id</td>
+                <td>$comment_post</td>
+                <td>$comment_date</td>
+                <td>$comment_author</td>
+                <td>$comment_email</td>
+                <td>$comment_content</td>
+                <td>$comment_status</td>
+                <td><a href='./admin_comments.php?approve={$comment_id}'>Approve</a></td>
+                <td><a href='./admin_comments.php?unapprove={$comment_id}'>Unapprove</a></td>
+                <td><a href='./admin_comments.php?delete={$comment_id}'>Delete</a></td>
+                </tr>";
+    }
+    echo "</tbody></table>";
+}
+
+function updateComments(){
+    global $connection;
+            if(isset($_GET['approve'])){
+                $approve_id = $_GET['approve'];
+                $approve_query = "UPDATE comments SET comment_status = 'approved' WHERE ";
+                $approve_query .= "comment_id=$approve_id";
+                $aproving = mysqli_query($connection, $approve_query);
+                header('Location: admin_comments.php'); 
+            }
+            else if(isset($_GET['unapprove'])){
+                $unapprove_id = $_GET['unapprove'];
+                $unapprove_query = "UPDATE comments SET comment_status = 'unapproved' WHERE ";
+                $unapprove_query .= "comment_id=$unapprove_id";
+                $unaproving = mysqli_query($connection, $unapprove_query);
+                header('Location: admin_comments.php'); 
+            }
+            else if(isset($_GET['delete'])){
+                $delete_id = $_GET['delete'];
+                $delete_query = "DELETE FROM comments WHERE comment_id=$delete_id";
+                $deleting = mysqli_query($connection, $delete_query);
+                header('Location: admin_comments.php'); 
+            }
+}
+
 ?>

@@ -35,7 +35,8 @@
                     <li>
                         <a href="./categories.php"><i class="fa fa-fw fa-file"></i> Categories</a>
                     </li>
-                    <li>
+                    <!--
+                        <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#users-dropdown"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="users-dropdown" class="collapse">
                             <li>
@@ -46,8 +47,9 @@
                             </li>
                         </ul>
                     </li>
+                    -->
                     <li>
-                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Comments</a>
+                        <a href="admin_comments.php"><i class="fa fa-fw fa-file"></i> Comments</a>
                     </li>
                     <li>
                         <a href="../index.php"><i class="fa fa-fw fa-file"></i> CMS Index</a>
