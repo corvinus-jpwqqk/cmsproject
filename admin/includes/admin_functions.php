@@ -206,4 +206,53 @@ function updateComments(){
             }
 }
 
+function showUsers(){
+    global $connection;
+    $user_query = "SELECT * FROM users";
+    $users = mysqli_query($connection, $user_query);
+    echo "
+        <table class='table table-bordered table-hover'><thead>
+        <tr>
+        <th>Id</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Email</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Role</th>
+        <th>Image</th>
+        </tr>
+        </thead>
+        <tbody>
+    ";
+    while($row = mysqli_fetch_assoc($users)){
+        $user_id = $row['user_id'];
+        $user_name = $row['user_name'];
+        $user_password = $row['user_password'];
+        $user_email = $row['user_email'];
+        $user_firstname = $row['user_firstname'];
+        $user_lastname = $row['user_lastname'];
+        $user_role = $row['user_role'];
+        $user_image = $row['user_image'];
+        $user_randSalt = $row['user_randSalt'];
+        echo "
+                <tr>
+                <td>$user_id</td>
+                <td>$user_name</td>
+                <td>$user_password</td>
+                <td>$user_email</td>
+                <td>$user_firstname</td>
+                <td>$user_lastname</td>
+                <td>$user_role</td>
+                <td><img src=\"images/";
+                echo $user_image;
+                echo "\"></td>
+                <td><a href='./admin_comments.php?approve={$comment_id}'>Approve</a></td>
+                <td><a href='./admin_comments.php?unapprove={$comment_id}'>Unapprove</a></td>
+                <td><a href='./admin_comments.php?delete={$comment_id}'>Delete</a></td>
+                </tr>";
+    }
+    echo "</tbody></table>";
+}
+
 ?>

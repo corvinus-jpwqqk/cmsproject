@@ -7,7 +7,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">CMS admin</a>
+                <a class="navbar-brand" href="index.php">CMS admin</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -35,19 +35,19 @@
                     <li>
                         <a href="./categories.php"><i class="fa fa-fw fa-file"></i> Categories</a>
                     </li>
-                    <!--
+                    
                         <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#users-dropdown"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="users-dropdown" class="collapse">
                             <li>
-                                <a href="#">Dropdown Item</a>
+                                <a href="admin_users.php">All users</a>
                             </li>
                             <li>
-                                <a href="#">Dropdown Item</a>
+                                <a href="admin_users.php?source=add_user">Add new user</a>
                             </li>
                         </ul>
                     </li>
-                    -->
+                    
                     <li>
                         <a href="admin_comments.php"><i class="fa fa-fw fa-file"></i> Comments</a>
                     </li>
