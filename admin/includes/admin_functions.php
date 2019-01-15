@@ -152,7 +152,7 @@ function showComments(){
         $comment_post_query = "SELECT * FROM posts WHERE post_id=$comment_post_id";
         $comment_post_query_result = mysqli_query($connection, $comment_post_query);
         while($row = mysqli_fetch_assoc($comment_post_query_result)){
-            $comment_post = substr($row['post_content'], 0, 15) . '...';
+            $comment_post = $row['post_title'];
         }
         
         echo "
@@ -190,8 +190,18 @@ function updateComments(){
             }
             else if(isset($_GET['delete'])){
                 $delete_id = $_GET['delete'];
+                $getpostid_query = "SELECT * FROM comments WHERE comment_id=$delete_id";
+                $getpostid = mysqli_query($connection, $getpostid_query);
+                while($row = mysqli_fetch_assoc($getpostid)){
+                    $postid = $row['comment_post_id'];
+                }
+                // decrement post com count where post id = comment_post_id;
                 $delete_query = "DELETE FROM comments WHERE comment_id=$delete_id";
                 $deleting = mysqli_query($connection, $delete_query);
+                $comment_count_update_query = "UPDATE posts ";
+                $comment_count_update_query .= "SET post_comment_count=post_comment_count-1 ";
+                $comment_count_update_query .= "WHERE post_id = $postid";
+                $comment_count_update = mysqli_query($connection, $comment_count_update_query);
                 header('Location: admin_comments.php'); 
             }
 }

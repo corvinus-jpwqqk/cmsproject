@@ -14,6 +14,11 @@
                         $comment_insert_query .= "($postid, now(), '{$comment_author}', ";
                         $comment_insert_query .= "'{$comment_email}', '{$comment_content}', 'unapproved')";
                         $comment_instert = mysqli_query($connection, $comment_insert_query);
+                        if($comment_instert){
+                            $comment_count_query = "UPDATE posts SET post_comment_count=post_comment_count+1 ";
+                            $comment_count_query .= "WHERE post_id = $postid";
+                            $comment_inc = mysqli_query($connection, $comment_count_query);
+                        }
                     }
                 ?>
                 <!-- Comments Form -->
