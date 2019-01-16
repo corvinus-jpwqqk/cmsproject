@@ -1,5 +1,9 @@
 <?php
     ob_start();
+    session_start();
+    if($_SESSION['role'] != 'admin'){
+        header("Location:../index.php");
+    }
 ?>
 
 <?php

@@ -8,6 +8,7 @@
         <!-- Navigation -->
         <?php
             include "includes/admin_navigation.php";
+            deleteUser();
         ?>
         <div id="page-wrapper">
             <div class="container-fluid">

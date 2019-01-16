@@ -247,12 +247,19 @@ function showUsers(){
                 <td><img src=\"images/";
                 echo $user_image;
                 echo "\"></td>
-                <td><a href='./admin_comments.php?approve={$comment_id}'>Approve</a></td>
-                <td><a href='./admin_comments.php?unapprove={$comment_id}'>Unapprove</a></td>
-                <td><a href='./admin_comments.php?delete={$comment_id}'>Delete</a></td>
+                <td><a href='./admin_users.php?deleteuser={$user_id}'>Delete</a></td>
                 </tr>";
     }
     echo "</tbody></table>";
 }
 
+function deleteUser(){
+    global $connection;
+    if(isset($_GET['deleteuser'])){
+        $del_user_id = $_GET['deleteuser'];
+        $del_user_query = "DELETE FROM users WHERE user_id=$del_user_id";
+        $del_user = mysqli_query($connection, $del_user_query);
+        header("Location: admin_users.php");
+    }
+}
 ?>

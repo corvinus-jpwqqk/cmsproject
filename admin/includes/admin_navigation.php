@@ -7,13 +7,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php">CMS admin</a>
+                <a class="navbar-brand" href="index.php">CMS admin -- Logged in as: <?php echo $_SESSION['firstname']." ".$_SESSION['lastname'];  ?></a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 
-            
-               
+                <li><a href="../logout.php">Logout</a></li>
             </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -54,6 +53,7 @@
                     <li>
                         <a href="../index.php"><i class="fa fa-fw fa-file"></i> CMS Index</a>
                     </li>
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
