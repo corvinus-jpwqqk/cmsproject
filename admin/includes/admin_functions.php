@@ -247,6 +247,7 @@ function showUsers(){
                 <td><img src=\"images/";
                 echo $user_image;
                 echo "\"></td>
+                <td><a href='./edit_user.php?edituser={$user_id}'>Edit</a></td>
                 <td><a href='./admin_users.php?deleteuser={$user_id}'>Delete</a></td>
                 </tr>";
     }
