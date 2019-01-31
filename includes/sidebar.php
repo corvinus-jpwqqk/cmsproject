@@ -18,18 +18,29 @@
 <!-- login form -->
 <div class="well">
     <h4>Login</h4>
-    <form action="includes/login.php" method="post">
-    <div class="form-group">
-        <input type="text" class="form-control" name="username" placeholder="Username">
-    </div>
-    <div class="input-group">
-        <input type="password" class="form-control" name="password" placeholder="Password">
-    
-        <span class="input-group-btn">
-            <button name="login" class="btn btn-primary" type="submit">Login</button>
-        </span>
-    </div>
-    </form>
+    <?php
+        if(!isset($_SESSION['username']) || $_SESSION['login'] == false){
+            echo('
+            <form action="includes/login.php" method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="username" placeholder="Username">
+                </div>
+                <div class="input-group">
+                    <input type="password" class="form-control" name="password" placeholder="Password">
+                
+                    <span class="input-group-btn">
+                        <button name="login" class="btn btn-primary" type="submit">Login</button>
+                    </span>
+                </div>
+            </form>
+            ');
+        }
+        else{
+            $uname = $_SESSION['username'];
+            echo "Logged in as $uname ! <br>"; 
+            echo '<a href="./logout.php">Logout</a>';
+        }
+    ?>
     <!-- /.input-group -->
 </div>
 

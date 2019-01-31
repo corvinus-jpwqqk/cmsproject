@@ -4,5 +4,6 @@ $_SESSION['username'] = null;
 $_SESSION['firstname'] = null;
 $_SESSION['lastname'] = null;
 $_SESSION['role'] = null;
-header("Location:index.php");
+$_SESSION['login'] = false;
+header("Location: ./index.php");
 ?>

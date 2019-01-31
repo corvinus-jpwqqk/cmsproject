@@ -23,7 +23,8 @@
         $_SESSION['firstname'] = $user_firstname;
         $_SESSION['lastname'] = $user_lastname;
         $_SESSION['role'] = $user_role;
-        header("Location:../admin/index.php");
+        $_SESSION['login'] = true;
+        header("Location:../index.php");
     }
     else{
         header("Location:../index.php");
