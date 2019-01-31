@@ -33,6 +33,9 @@
                     </span>
                 </div>
             </form>
+            <span class="input-group-btn">
+                        <a href="./registration.php"><button class="btn btn-primary">Register</button></a>
+                    </span>
             ');
         }
         else{

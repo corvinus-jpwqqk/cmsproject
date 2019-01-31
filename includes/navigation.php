@@ -13,6 +13,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
+            
                     <?php
                         global $connection;
                         $query = "SELECT * FROM categories";                    
@@ -23,7 +24,7 @@
                             echo "<li><a href='catposts.php?catid=$cat_id'>{$cat_title}</a></li>";
                         }
                     ?>
-                    <li><a href="admin/index.php">Admin</li>
+                    <a class="navbar-brand" href="admin/index.php">ADMIN</a>
                     <!--
                     <li>
                         <a href="#">About</a>
