@@ -40,9 +40,10 @@ if(isset($_POST['update_user'])){
     $update_user_query .= "user_firstname = '{$user_firstname}', ";
     $update_user_query .= "user_lastname = '{$user_lastname}', ";
     $update_user_query .= "user_role = '{$user_role}' ";
+    $update_user_query .= "user_image = '{$user_image}' ";
     $update_user_query .= "WHERE user_id = {$edit_id}";
     $update_user_result = mysqli_query($connection, $update_user_query);
-    confirmQuery($update_user_result);
+    header("Location: admin_users.php");
 }
 ?>
 <body>
@@ -66,7 +67,7 @@ if(isset($_POST['update_user'])){
 </div>
 <div class="form-group">
     <label for="user_password">User Password</label>
-    <input type="text" class="form-control" name="user_password" value="<?php echo $user_password; ?>">
+    <input type="password" class="form-control" name="user_password" value="<?php echo $user_password; ?>">
 </div>
 <div class="form-group">
     <label for="user_firstname">First Name</label>

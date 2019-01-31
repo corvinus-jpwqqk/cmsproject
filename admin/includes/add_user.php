@@ -28,7 +28,7 @@ if(isset($_POST['create_user'])){
     
 <div class="form-group">
     <label for="user_password">Password</label>
-    <input type="password" class="form-control" name="password">
+    <input type="password" class="form-control" name="user_password">
 </div>
 <div class="form-group">
     <label for="user_email">Email</label>
