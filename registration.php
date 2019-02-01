@@ -7,6 +7,7 @@
     <!-- Page Content -->
 
 <?php
+    $message = "";
     global $connection;
     if(isset($_POST['submit'])){
         $username = $_POST['username'];
@@ -15,12 +16,22 @@
         $email = mysqli_real_escape_string($connection, $email);
         $password = $_POST['password'];
         $password = mysqli_real_escape_string($connection, $password);
-        $newuser_query = "INSERT INTO users ('user_name', 'user_email', 'user_password') ";
-        $newuser_query .= "VALUES('$username', '$email', '$password')";
-        $create = mysqli_query($connection, $newuser_query);
-        if(!$create){
-            die("Query failed: " . mysqli_error($connection));
+        if(!empty($username) && !empty($password) && !empty($email)){
+            $randsalt_query = "SELECT user_randSalt FROM users";
+            $randsalt = mysqli_query($connection, $randsalt_query);
+            $salt = mysqli_fetch_assoc($randsalt)['user_randSalt'];
+            $password = crypt($password, $salt);
+            $newuser_query = "INSERT INTO users (user_name, user_email, user_password) ";
+            $newuser_query .= "VALUES('{$username}', '{$email}', '{$password}');";
+            $create = mysqli_query($connection, $newuser_query);
+            if(!$create){
+                die("Query failed: " . mysqli_error($connection));
+            }
         }
+        else{
+            $message = "Please fill out all fields!";
+        }
+        
     }
 ?>
 
@@ -31,6 +42,7 @@
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="form-wrap">
                 <h1>Register</h1>
+                    <h6><?php echo $message; ?><h6>
                     <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
                         <div class="form-group">
                             <label for="username" class="sr-only">username</label>

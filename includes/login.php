@@ -4,10 +4,14 @@
 ?>
 
 <?php
+    $get_salt_query = "SELECT user_randSalt FROM users";
+    $randSalt = mysqli_query($connection, $get_salt_query);
+    $salt = mysqli_fetch_assoc($randSalt)['user_randSalt'];
     $username = $_POST['username'];
     $password = $_POST['password'];
     $username = mysqli_real_escape_string($connection, $username);
     $password = mysqli_real_escape_string($connection, $password);
+    $password = crypt($password, $salt);
     $select_user_query = "SELECT * FROM users WHERE user_name='{$username}'";
     $user = mysqli_query($connection, $select_user_query);
         while($row = mysqli_fetch_assoc($user)){
