@@ -6,7 +6,7 @@
 if(isset($_GET['edituser'])){
     global $connection;
     $edit_id = $_GET['edituser'];
-    $select_users_query = "SELECT * FROM users;";
+    $select_users_query = "SELECT * FROM users WHERE user_id=$edit_id;";
     $select_query_result = mysqli_query($connection, $select_users_query);
     while($row = mysqli_fetch_assoc($select_query_result)){
         $user_name = $row['user_name'];
@@ -19,30 +19,53 @@ if(isset($_GET['edituser'])){
     
 }
 if(isset($_POST['update_user'])){
-    $user_name = $_POST['user_name'];
+    $randsalt_query = "SELECT user_randSalt FROM users";
+    $randsalt = mysqli_query($connection, $randsalt_query);
+    $salt = mysqli_fetch_assoc($randsalt)['user_randSalt'];
+    $getpass_query = "SELECT user_password FROM users WHERE user_id=$edit_id";
+    $getpass = mysqli_query($connection, $getpass_query);
+    $pass = mysqli_fetch_assoc($getpass)['user_password'];
     $user_password = $_POST['user_password'];
+    if($pass != $user_password && !empty($user_password)){
+        $user_password = crypt($user_password, $salt);
+    }
+    else{
+        $user_password = $pass;
+    }
+    $user_name = $_POST['user_name'];
     $user_firstname = $_POST['user_firstname'];
     $user_lastname = $_POST['user_lastname'];
-    $user_role =  $_POST['user_role'];
+    $user_role = $_POST['user_role'];
     $user_image = $_FILES['user_image']['name'];
     $user_image_temp = $_FILES['user_image']['tmp_name'];
     move_uploaded_file($user_image_temp, "../images/$user_image");
+    $dontupdate = false;
     if(empty($user_image)){
         $image_query = "SELECT * FROM users WHERE user_id=$edit_id";
         $im_query_result = mysqli_query($connection, $image_query);
         while($row = mysqli_fetch_assoc($im_query_result)){
             $user_image = $row['user_image'];
         }
+        if(empty($user_image)){
+            $dontupdate = true;
+        }
     }
     $update_user_query = "UPDATE users SET ";
-    $update_user_query .= "user_name = '{$user_name}', ";
-    $update_user_query .= "user_password = '{$user_password}', ";
-    $update_user_query .= "user_firstname = '{$user_firstname}', ";
-    $update_user_query .= "user_lastname = '{$user_lastname}', ";
-    $update_user_query .= "user_role = '{$user_role}' ";
-    $update_user_query .= "user_image = '{$user_image}' ";
-    $update_user_query .= "WHERE user_id = {$edit_id}";
+    $update_user_query .= "user_name = '$user_name', ";
+    $update_user_query .= "user_password = '$user_password', ";
+    $update_user_query .= "user_firstname = '$user_firstname', ";
+    $update_user_query .= "user_lastname = '$user_lastname', ";
+    $update_user_query .= "user_role = '$user_role' ";
+    if(!$dontupdate){
+        $update_user_query .= "user_image = '$user_image' ";
+        move_uploaded_file($user_image_temp, "../images/$user_image");
+    }
+    $update_user_query .= "WHERE user_id = $edit_id";
     $update_user_result = mysqli_query($connection, $update_user_query);
+    echo $update_user_result;
+    if(!$update_user_result){
+        die(mysqli_error($connection));
+    }
     header("Location: admin_users.php");
 }
 ?>
@@ -67,7 +90,7 @@ if(isset($_POST['update_user'])){
 </div>
 <div class="form-group">
     <label for="user_password">User Password</label>
-    <input type="password" class="form-control" name="user_password" value="<?php echo $user_password; ?>">
+    <input  type="password" class="form-control" name="user_password" value="">
 </div>
 <div class="form-group">
     <label for="user_firstname">First Name</label>

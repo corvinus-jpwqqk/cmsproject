@@ -1,23 +1,23 @@
 <?php
-if(isset($_POST['create_user'])){
-    global $connection;
-    $user_name = $_POST['user_name'];
-    $user_password = $_POST['user_password'];
-    $user_email = $_POST['user_email'];
-    $user_firstname = $_POST['user_firstname'];
-    $user_lastname = $_POST['user_lastname'];
-    $user_role = $_POST['user_role'];    
-    $user_image = $_FILES['post_image']['name'];
-    $user_image_temp = $_FILES['post_image']['tmp_name'];
-    move_uploaded_file($user_image_temp, "../images/$user_image");
-    $new_user_query = "INSERT INTO users (user_name, user_password, user_email, user_firstname, ";
-    $new_user_query .= "user_lastname, user_role, user_image) VALUES ('{$user_name}', ";
-    $new_user_query .= "'{$user_password}', '{$user_email}', '{$user_firstname}', ";
-    $new_user_query .= "'{$user_lastname}', '{$user_role}', '{$user_image}')";
-    $insert_user = mysqli_query($connection, $new_user_query);
-    header("Location: admin_users.php");
-}
-?>
+    if(isset($_POST['create_user'])){
+        global $connection;
+        $user_name = $_POST['user_name'];
+        $user_password = $_POST['user_password'];
+        $user_email = $_POST['user_email'];
+        $user_firstname = $_POST['user_firstname'];
+        $user_lastname = $_POST['user_lastname'];
+        $user_role = $_POST['user_role'];    
+        $user_image = $_FILES['post_image']['name'];
+        $user_image_temp = $_FILES['post_image']['tmp_name'];
+        move_uploaded_file($user_image_temp, "../images/$user_image");
+        $new_user_query = "INSERT INTO users (user_name, user_password, user_email, user_firstname, ";
+        $new_user_query .= "user_lastname, user_role, user_image) VALUES ('{$user_name}', ";
+        $new_user_query .= "'{$user_password}', '{$user_email}', '{$user_firstname}', ";
+        $new_user_query .= "'{$user_lastname}', '{$user_role}', '{$user_image}')";
+        $insert_user = mysqli_query($connection, $new_user_query);
+        header("Location: admin_users.php");
+    }
+    ?>
 
 <form action="" method="post" enctype="multipart/form-data">
 <div class="form-group">
