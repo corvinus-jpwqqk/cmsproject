@@ -71,8 +71,23 @@ function showPosts(){
     $post_query = "SELECT * FROM posts";
     $result_post_query = mysqli_query($connection, $post_query);
     echo "
-        <table class='table table-bordered table-hover'><thead>
+        <form action='' method='post'>
+        <table class='table table-bordered table-hover'>
+        <div id='bulkOptionsContainer' class='col-xs-4'>
+        <select class='form-control' name='' id=''>
+        <option value=''>Select Options</option>
+        <option value=''>Publish</option>
+        <option value=''>Draft</option>
+        <option value=''>Delete</option>
+        </select>
+        </div>
+        <div class='col-xs-4'>
+        <input type='submit' name='submit' class='btn btn-success' balue='Apply'>
+        <a class='btn btn-primary' href='add_post.php'>Add New</a>
+        </div>
+        <thead>
         <tr>
+        <th> <input type='checkbox' id='selectAllBoxes'></th>
         <th>Id</th>
         <th>Author</th>
         <th>Title</th>
@@ -100,6 +115,9 @@ function showPosts(){
         $post_status = $row['post_status'];
         echo "
                 <tr>
+                <td><input type='checkbox' class='checkBoxes' name='checkBoxArray[]' value='";
+                echo $post_id;
+                echo "'></td>
                 <td>$post_id</td>
                 <td>$post_author</td>
                 <td>$post_title</td>";
@@ -120,7 +138,7 @@ function showPosts(){
                 <td><a href='./posts.php?delete={$post_id}'>Delete</a></td>
                 </tr>";
     }
-    echo "</tbody></table>";
+    echo "</tbody></table></form>";
 }
 
 function showComments(){
