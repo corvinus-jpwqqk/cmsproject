@@ -2,7 +2,6 @@
     include "includes/admin_header.php";
     include "includes/admin_functions.php";
 ?>
-
 <body>
     <div id="wrapper">
         <!-- Navigation -->
@@ -32,11 +31,42 @@
                                 include "includes/edit_post.php";
                                 break;
                             default:
-                                echo "default";
                                 showPosts();
                                 break;
                         }
-                            deletePost();
+                        if(isset($_POST['checkBoxArray'])){
+                            foreach ($_POST['checkBoxArray'] as $checkBoxValue) {
+                                $bulk_options = $_POST['bulk_options'];
+                                switch($bulk_options){
+                                    case "publish":
+                                    $query = "UPDATE posts SET post_status='published' WHERE post_id=$checkBoxValue";
+                                    $update = mysqli_query($connection, $query);
+                                    if(!$update){
+                                        die("Query failed: ".mysqli_error($connection));
+                                    }
+                                    header('Location: posts.php');
+                                    break;
+                                    case 'draft':
+                                    $query = "UPDATE posts SET post_status='draft' WHERE post_id=$checkBoxValue";
+                                    $update = mysqli_query($connection, $query);
+                                    if(!$update){
+                                        die("Query failed: ".mysqli_error($connection));
+                                    }
+                                    header('Location: posts.php');
+                                    break;
+                                    case "delete":
+                                    $query = "DELETE FROM posts WHERE post_id={$checkBoxValue}";
+                                    $delete = mysqli_query($connection, $query);
+                                    if(!$delete){
+                                        die("Query failed: ".mysqli_error($connection));
+                                    }
+                                    header('Location: posts.php');
+                                    break;
+                                    default:
+                                    break;
+                                }
+                            }
+                        }
                         ?>
                     </div>
                 </div>
@@ -48,3 +78,4 @@
 <?php
     include "includes/admin_footer.php";
 ?>
+<script src="js/scripts.js"></script>

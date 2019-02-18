@@ -52,19 +52,6 @@ function newCategory(){
     }
 }
 
-function deletePost(){
-    global $connection;
-    if(isset($_GET['delete'])){
-        $delete_id = $_GET['delete'];
-        $del_post_query = "DELETE FROM posts WHERE post_id={$delete_id}";
-        $delete_query = mysqli_query($connection, $del_post_query);
-        confirmQuery($delete_query);
-        if($delete_query){
-            header('Location: posts.php');
-        }
-    }
-}
-
 
 function showPosts(){
     global $connection;
@@ -74,15 +61,15 @@ function showPosts(){
         <form action='' method='post'>
         <table class='table table-bordered table-hover'>
         <div id='bulkOptionsContainer' class='col-xs-4'>
-        <select class='form-control' name='' id=''>
+        <select class='form-control' name='bulk_options' id=''>
         <option value=''>Select Options</option>
-        <option value=''>Publish</option>
-        <option value=''>Draft</option>
-        <option value=''>Delete</option>
+        <option value='publish'>Publish</option>
+        <option value='draft'>Draft</option>
+        <option value='delete'>Delete</option>
         </select>
         </div>
         <div class='col-xs-4'>
-        <input type='submit' name='submit' class='btn btn-success' balue='Apply'>
+        <input type='submit' name='submit' class='btn btn-success' value='Apply'>
         <a class='btn btn-primary' href='add_post.php'>Add New</a>
         </div>
         <thead>
