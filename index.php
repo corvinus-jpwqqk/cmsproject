@@ -16,14 +16,28 @@ include "includes/connect.php";
 
             <!-- Blog Entries Column -->
             <div class="col-md-8">
-                
+                <?php
+                    $post_count_query = "SELECT * FROM posts";
+                    $post_count_result = mysqli_query($connection, $post_count_query);
+                    $post_count = mysqli_num_rows($post_count_result);
+                    $post_count /= 2;
+                    $post_count = ceil($post_count);
+                ?>
                 <h1 class="page-header">
                     Viewing all posts
                 </h1>
 
                 <!-- First Blog Post -->
                 <?php
-                $query = "SELECT * FROM posts";                    
+                if(isset($_GET['page'])){
+                    $page = $_GET['page'];
+                }
+                else{
+                    $page = 1;
+                }
+                $offset = $page*2 - 2;
+                echo $offset;
+                $query = "SELECT * FROM posts LIMIT $offset, 2";                    
                 $result = mysqli_query($connection, $query);
                 while($row = mysqli_fetch_assoc($result)){
                     $post_title = $row['post_title'];
@@ -59,7 +73,12 @@ include "includes/connect.php";
 
         </div>
         <!-- /.row -->
-
+        <ul class="pager">
+            <?php
+                for($i = 1 ; $i <= $post_count ; $i++){
+                        echo "<li><a href='index.php?page=$i'>$i</li>";
+                }
+            ?>
         <hr>
         <?php
             include "includes/footer.php";
