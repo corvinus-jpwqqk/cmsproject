@@ -95,7 +95,9 @@ function showPosts(){
         $post_image = $row['post_image'];
         $post_content = $row['post_content'];
         $post_tags = $row['post_tags'];
-        $post_comment = $row['post_comment_count'];
+        $query = "SELECT * FROM comments WHERE comment_post_id = $post_id";
+        $send_comment_query = mysqli_query($connection, $query);
+        $post_comment = mysqli_num_rows($send_comment_query);
         $post_id = $row['post_id'];
         $post_title = $row['post_title'];
         $post_category = $row['post_category_id'];
@@ -119,7 +121,7 @@ function showPosts(){
                 <td>$post_status</td>
                 <td><img width='100' src='../images/$post_image'></td>
                 <td>$post_tags</td>
-                <td>$post_comment</td>
+                <td><a href='postcmt.php?getcom=$post_id'>$post_comment</a></td>
                 <td>$post_date</td>
                 <td><a href='./posts.php?source=edit_post&edit={$post_id}'>Edit</a></td>
                 <td><a href='./posts.php?delete={$post_id}'>Delete</a></td>
