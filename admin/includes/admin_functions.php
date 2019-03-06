@@ -263,11 +263,15 @@ function showUsers(){
 
 function deleteUser(){
     global $connection;
-    if(isset($_GET['deleteuser'])){
-        $del_user_id = $_GET['deleteuser'];
-        $del_user_query = "DELETE FROM users WHERE user_id=$del_user_id";
-        $del_user = mysqli_query($connection, $del_user_query);
-        header("Location: admin_users.php");
+    if(isset($_SESSION['user_role'])){
+        if($_SESSION['user_role'] == 'admin'){
+            if(isset($_GET['deleteuser'])){
+                $del_user_id = $_GET['deleteuser'];
+                $del_user_query = "DELETE FROM users WHERE user_id=$del_user_id";
+                $del_user = mysqli_query($connection, $del_user_query);
+                header("Location: admin_users.php");
+            }
+        }
     }
 }
 ?>
