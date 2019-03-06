@@ -27,7 +27,7 @@ if(isset($_POST['update_user'])){
     $pass = mysqli_fetch_assoc($getpass)['user_password'];
     $user_password = $_POST['user_password'];
     if($pass != $user_password && !empty($user_password)){
-        $user_password = crypt($user_password, $salt);
+        $user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));
     }
     else{
         $user_password = $pass;

@@ -2,7 +2,7 @@
     if(isset($_POST['create_user'])){
         global $connection;
         $user_name = $_POST['user_name'];
-        $user_password = $_POST['user_password'];
+        $user_password = password_hash($_POST['user_password'], PASSWORD_BCRYPT, array('cost' => 10));
         $user_email = $_POST['user_email'];
         $user_firstname = $_POST['user_firstname'];
         $user_lastname = $_POST['user_lastname'];

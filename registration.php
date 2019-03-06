@@ -16,11 +16,9 @@
         $email = mysqli_real_escape_string($connection, $email);
         $password = $_POST['password'];
         $password = mysqli_real_escape_string($connection, $password);
+        
         if(!empty($username) && !empty($password) && !empty($email)){
-            $randsalt_query = "SELECT user_randSalt FROM users";
-            $randsalt = mysqli_query($connection, $randsalt_query);
-            $salt = mysqli_fetch_assoc($randsalt)['user_randSalt'];
-            $password = crypt($password, $salt);
+            $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 10));
             $newuser_query = "INSERT INTO users (user_name, user_email, user_password) ";
             $newuser_query .= "VALUES('{$username}', '{$email}', '{$password}');";
             $create = mysqli_query($connection, $newuser_query);
@@ -31,6 +29,8 @@
         else{
             $message = "Please fill out all fields!";
         }
+        
+
         
     }
 ?>
