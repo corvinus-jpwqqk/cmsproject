@@ -24,7 +24,12 @@
                             echo "<li><a href='catposts.php?catid=$cat_id'>{$cat_title}</a></li>";
                         }
                     ?>
-                    <a class="navbar-brand" href="admin/index.php">ADMIN</a>
+                    <li>
+                        <a href="contact.php">Contact</a>
+                    </li>
+                    <li>
+                    <a href="admin/index.php">ADMIN</a>
+                    <li>
                     <!--
                     <li>
                         <a href="#">About</a>
@@ -32,10 +37,9 @@
                     <li>
                         <a href="#">Services</a>
                     </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
                     -->
+                    
+                    
 
                 </ul>
             </div>
