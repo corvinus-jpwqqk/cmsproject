@@ -21,10 +21,22 @@
                         while($row = mysqli_fetch_assoc($result)){
                             $cat_title = $row['cat_title'];
                             $cat_id = $row['cat_id'];
-                            echo "<li><a href='catposts.php?catid=$cat_id'>{$cat_title}</a></li>";
+                            $category_class = "";
+                            $registration_class = "";
+
+                            $pageName = basename($_SERVER['PHP_SELF']);
+                            
+                            if(isset($_GET['catid']) && $_GET['catid'] == $cat_id){
+                                $category_class = 'active';
+                            }
+                            else if($pageName == "contact.php"){
+                                $registration_class = "active";
+                            }
+                            echo "<li class='$category_class'><a href='catposts.php?catid=$cat_id'>{$cat_title}</a></li>";
                         }
+
                     ?>
-                    <li>
+                    <li class='<?php echo $registration_class; ?>'>
                         <a href="contact.php">Contact</a>
                     </li>
                     <li>
