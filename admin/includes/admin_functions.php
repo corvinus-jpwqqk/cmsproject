@@ -55,8 +55,14 @@ function newCategory(){
 
 function showPosts(){
     global $connection;
-    $post_query = "SELECT * FROM posts";
+    $post_query  = "SELECT posts.post_id, posts.post_author, posts.post_title, posts.post_content, ";
+    $post_query .= "posts.post_category_id, posts.post_status, posts.post_image, posts.post_tags, ";
+    $post_query .= "posts.post_date, categories.cat_id, categories.cat_title ";
+    $post_query .= "FROM posts LEFT JOIN categories ON posts.post_category_id = categories.cat_id";
     $result_post_query = mysqli_query($connection, $post_query);
+    if(!$result_post_query){
+        die("Query failed: " . mysqli_error($connection));
+    }
     echo "
         <form action='' method='post'>
         <table class='table table-bordered table-hover'>
@@ -95,13 +101,17 @@ function showPosts(){
         $post_image = $row['post_image'];
         $post_content = $row['post_content'];
         $post_tags = $row['post_tags'];
-        $query = "SELECT * FROM comments WHERE comment_post_id = $post_id";
-        $send_comment_query = mysqli_query($connection, $query);
-        $post_comment = mysqli_num_rows($send_comment_query);
         $post_id = $row['post_id'];
         $post_title = $row['post_title'];
         $post_category = $row['post_category_id'];
         $post_status = $row['post_status'];
+        $post_category_id = $row['cat_id'];
+        $post_category_title = $row['cat_title'];
+
+        $query = "SELECT * FROM comments WHERE comment_post_id = $post_id";
+        $send_comment_query = mysqli_query($connection, $query);
+        $post_comment = mysqli_num_rows($send_comment_query);
+        
         echo "
                 <tr>
                 <td><input type='checkbox' class='checkBoxes' name='checkBoxArray[]' value='";
@@ -111,13 +121,8 @@ function showPosts(){
                 <td>$post_author</td>
                 <td>$post_title</td>";
 
-                $cat_id_query = "SELECT * FROM categories WHERE cat_id=$post_category";
-                $cat_id_result = mysqli_query($connection, $cat_id_query);
-                while($row = mysqli_fetch_assoc($cat_id_result)){
-                    $current_category = $row['cat_title'];
-                }
                 echo "
-                <td>$current_category</td>
+                <td>$post_category_title</td>
                 <td>$post_status</td>
                 <td><img width='100' src='../images/$post_image'></td>
                 <td>$post_tags</td>
